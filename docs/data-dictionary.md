@@ -1,0 +1,2 @@
+# Data dictionary
+app_user: unique email, password hash and role. building: campus facility and zone. room: building-scoped room/floor. issue_category: taxonomy and SLA. issue: reporter, location, category, description, priority, lifecycle and version. issue_assignment: assignment history with at most one active assignment. resolution_record: unique resolution per issue. Mongo issue_activity: issueId, kind, actorId, flexible metadata and timestamp.

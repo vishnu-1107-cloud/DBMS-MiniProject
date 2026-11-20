@@ -1,0 +1,1 @@
+import pg from 'pg';import fs from 'node:fs';const p=new pg.Pool({connectionString:process.env.DATABASE_URL});await p.query(fs.readFileSync('db/schema.sql','utf8'));await p.end();console.log('Schema installed');

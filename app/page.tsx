@@ -1,0 +1,4 @@
+import {pool} from '@/lib/db';import {currentUser} from '@/lib/auth';import CampusFixClient from './CampusFixClient';
+type Issue={issue_id:number;title:string;status:string;priority:number;building:string;room_code:string;category:string;reporter:string};
+export const dynamic='force-dynamic';
+export default async function Page(){let initialIssues:Issue[]=[];const user=await currentUser();if(user){const result=await pool.query("SELECT i.issue_id,i.title,i.status,i.priority,i.created_at,b.name AS building,r.room_code,c.name AS category,reporter.full_name AS reporter FROM issue i JOIN room r USING(room_id) JOIN building b USING(building_id) JOIN issue_category c USING(category_id) JOIN app_user reporter ON reporter.user_id=i.reporter_id ORDER BY i.priority DESC,i.created_at DESC LIMIT 200");initialIssues=result.rows as Issue[]}return <CampusFixClient initialIssues={initialIssues}/>}
